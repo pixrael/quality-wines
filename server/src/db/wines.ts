@@ -19,3 +19,4 @@ export const WineModel = mongoose.model('Wine', WineSchema);
 export const getWines = () => WineModel.find();
 export const createWine = (values: Record<string, any>) => new WineModel(values).save().then((wine) => wine.toObject());
 export const getWineByName = (name: string) => WineModel.findOne({ name });
+export const getWineById = (id: string) => WineModel.findById(id);
