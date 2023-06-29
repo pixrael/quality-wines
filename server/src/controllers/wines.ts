@@ -1,4 +1,4 @@
-import { createWine, getWineById, getWineByName, getWines } from '../db/wines';
+import { createWine, getWineById, getWineByName, getWines, deleteWineById } from '../db/wines';
 import express from 'express';
 
 
@@ -75,6 +75,9 @@ export const updateWine = async (req: express.Request, res: express.Response) =>
     }
 
     const wine = await getWineById(id);
+    if (!wine) {
+      return res.status(400).json({ message: 'Wine to update not found' });
+    }
 
     wine.name = name;
     wine.year = year;
@@ -89,6 +92,23 @@ export const updateWine = async (req: express.Request, res: express.Response) =>
     await wine.save();
 
     return res.status(200).json(wine).end();
+  } catch (error) {
+    console.log(error);
+    return res.sendStatus(400);
+  }
+}
+
+export const deleteWine = async (req: express.Request, res: express.Response) => {
+  try {
+    const { id } = req.params;
+
+    const deletedWine = await deleteWineById(id);
+    const wine = await getWineById(id);
+    if (!wine) {
+      return res.status(400).json({ message: 'Wine to delete not found' });
+    }
+    
+    return res.json(deletedWine);
   } catch (error) {
     console.log(error);
     return res.sendStatus(400);

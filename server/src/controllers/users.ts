@@ -17,6 +17,12 @@ export const deleteUser = async (req: express.Request, res: express.Response) =>
   try {
     const { id } = req.params;
 
+    const user = await getUserById(id);
+
+    if(!user){
+      return res.status(400).json({ message: 'User to delete not found' });
+    }
+
     const deletedUser = await deleteUserById(id);
 
     return res.json(deletedUser);
@@ -32,10 +38,14 @@ export const updateUser = async (req: express.Request, res: express.Response) =>
     const { username } = req.body;
 
     if (!username) {
-      return res.sendStatus(400);
+      return res.status(400).json({ message: 'Provided username is invalid' });
     }
 
     const user = await getUserById(id);
+
+    if(!user){
+      return res.status(400).json({ message: 'User to update not found' });
+    }
     
     user.username = username;
     await user.save();
