@@ -1,8 +1,9 @@
 import { TextField } from "@mui/material";
-import { FieldErrors, FieldValues, RegisterOptions, UseFormReturn } from "react-hook-form";
+import { FieldErrors, FieldValues, Path, RegisterOptions, UseFormReturn } from "react-hook-form";
 import { capitalizeFirstLetter } from "../../utils/utils";
 
-function TextfieldQWW({ registerObj, textfieldParams, useFormObj }: { registerObj: string | { name: string, registerOptions: RegisterOptions }, textfieldParams?: any, useFormObj: UseFormReturn<FieldValues, any, undefined> }) {
+function TextfieldQWW<T extends FieldValues>({ registerObj, textfieldParams, useFormObj }: { registerObj: Path<T> | { name: Path<T>, registerOptions: RegisterOptions }, textfieldParams?: any, useFormObj: UseFormReturn<T, any, undefined> }) {
+
     const getMessageError = (errors: FieldErrors<FieldValues>, fieldName: string): string => {
         if (!errors || !errors[fieldName]) return '';
         return errors[fieldName]?.message as string;
@@ -14,7 +15,7 @@ function TextfieldQWW({ registerObj, textfieldParams, useFormObj }: { registerOb
 
     const defaultRegisterOptions = (typeof registerObj === 'string') ? {} : {
         required: registerObj.registerOptions.required === true ? 'This field is required' : registerObj.registerOptions.required
-        
+
     };
     const registerOptions = (typeof registerObj === 'string') ? {} :
         {

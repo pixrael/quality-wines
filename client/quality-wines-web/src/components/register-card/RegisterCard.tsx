@@ -6,7 +6,7 @@ import TextfieldQWW from "../textfield-qww/TexfieldQWW";
 
 function RegisterCard() {
     const navigate = useNavigate();
-    const useFormObj = useForm({ mode: 'onChange' });
+    const useFormObj = useForm({ mode: 'onChange', defaultValues: { username: '', email: '', password: '', confirmPassword: '' } });
 
     const onSubmit = (data: any) => {
         console.log(data);
@@ -31,7 +31,13 @@ function RegisterCard() {
                         <TextfieldQWW
                             registerObj={{
                                 name: "email",
-                                registerOptions: { required: true }
+                                registerOptions: {
+                                    required: true,
+                                    pattern: {
+                                        value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
+                                        message: "invalid email address"
+                                    }
+                                }
                             }}
                             useFormObj={useFormObj}
                         />
@@ -39,7 +45,9 @@ function RegisterCard() {
                         <TextfieldQWW
                             registerObj={{
                                 name: "password",
-                                registerOptions: { required: true }
+                                registerOptions: {
+                                    required: true
+                                }
                             }}
                             textfieldParams={{
                                 type: 'password'
