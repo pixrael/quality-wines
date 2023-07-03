@@ -1,6 +1,7 @@
 import { TextField } from "@mui/material";
 import { FieldErrors, FieldValues, Path, RegisterOptions, UseFormReturn } from "react-hook-form";
 import { capitalizeFirstLetter } from "../../utils/utils";
+import './TextfieldQWW.scss'
 
 function TextfieldQWW<T extends FieldValues>({ registerObj, textfieldParams, useFormObj }: { registerObj: Path<T> | { name: Path<T>, registerOptions: RegisterOptions }, textfieldParams?: any, useFormObj: UseFormReturn<T, any, undefined> }) {
 
