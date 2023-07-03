@@ -7,9 +7,13 @@ import { useLoginUserMutation } from "../../store/api/wines-qww-api";
 import store from "../../store/store";
 import { showSnackbar } from "../../store/slices/overlay-slice";
 import { Severity } from "../feedback-overlays-qww/snackbar-qww/SnackbarQWW";
+import useLoginSession from "../../hooks/useLoginSession";
+
 
 function LoginCard() {
     const navigate = useNavigate();
+
+    const [setSession] = useLoginSession();
 
     const useFormObj = useForm({ mode: 'onChange', defaultValues: { email: '', password: '' } });
 
@@ -28,8 +32,10 @@ function LoginCard() {
 
             if (response.isSuccess) {
                 store.dispatch(showSnackbar({ message: `User ${response.data.username} logged successfully`, severity: Severity.SUCCESS }));
-                navigate('/measurements')
-                
+
+                setSession(response.data.authentication.sessionToken);
+                navigate('/measurements');
+
             } else if (response.isError && 'status' in response.error) {
                 const errMsg = 'error' in response.error ? response.error.error : response.error.data
                 store.dispatch(showSnackbar({ message: `Error: "${errMsg}"`, severity: Severity.ERROR }));

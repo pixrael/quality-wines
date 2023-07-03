@@ -3,13 +3,14 @@ import { useState } from "react";
 import MenuIcon from '@mui/icons-material/Menu';
 import LiquorIcon from '@mui/icons-material/Liquor';
 import { useLocation } from "react-router-dom";
+import useIsLogged from "../../hooks/useLoginSession";
 
 
 const pages = ['Products', 'Pricing', 'Blog'];
-const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
+const settings = ['Logout'];
 
 const Navbar = () => {
-
+    const [,removeSession] = useIsLogged();
     const location = useLocation();
 
     const [anchorElNav, setAnchorElNav] = useState<null | HTMLElement>(null);
@@ -27,6 +28,7 @@ const Navbar = () => {
     };
 
     const handleCloseUserMenu = () => {
+        removeSession();
         setAnchorElUser(null);
     };
 

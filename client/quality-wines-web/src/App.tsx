@@ -5,6 +5,7 @@ import Register from './pages/Register';
 import Navbar from './components/navbar/Navbar';
 import FeedbackOverlaysQWW from './components/feedback-overlays-qww/FeedbackOverlaysQWW';
 import Measurements from './pages/Measurements';
+import AuthRequired from './components/auth-required/AuthRequired';
 
 function App() {
   return (
@@ -13,7 +14,7 @@ function App() {
       <Routes>
         <Route path='/login' element={<Login />} />
         <Route path='/register' element={<Register />} />
-        <Route path='/measurements' element={<Measurements />} />        
+        <Route path='/measurements' element={<AuthRequired componentToRender={<Measurements/>} />} />
       </Routes>
       <FeedbackOverlaysQWW />
     </>
