@@ -1,13 +1,13 @@
 import { configureStore } from '@reduxjs/toolkit';
-import { authApi } from './api/auth-api';
+import { winesQWWApi } from './api/wines-qww-api';
 import snackbarSlice from './slices/overlay-slice';
 
 export default configureStore({
     reducer: {
-        [authApi.reducerPath]: authApi.reducer,
+        [winesQWWApi.reducerPath]: winesQWWApi.reducer,
         snackbar: snackbarSlice
     },
     middleware: getDefaultMiddleware =>
         getDefaultMiddleware()
-            .concat(authApi.middleware)
+            .concat(winesQWWApi.middleware)
 })

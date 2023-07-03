@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import TextfieldQWW from "../textfield-qww/TextfieldQWW";
 import { useForm } from "react-hook-form";
 import { useEffect, useState } from "react";
-import { useLoginUserMutation } from "../../store/api/auth-api";
+import { useLoginUserMutation } from "../../store/api/wines-qww-api";
 import store from "../../store/store";
 import { showSnackbar } from "../../store/slices/overlay-slice";
 import { Severity } from "../feedback-overlays-qww/snackbar-qww/SnackbarQWW";
@@ -28,7 +28,8 @@ function LoginCard() {
 
             if (response.isSuccess) {
                 store.dispatch(showSnackbar({ message: `User ${response.data.username} logged successfully`, severity: Severity.SUCCESS }));
-                //navigate to /
+                navigate('/measurements')
+                
             } else if (response.isError && 'status' in response.error) {
                 const errMsg = 'error' in response.error ? response.error.error : response.error.data
                 store.dispatch(showSnackbar({ message: `Error: "${errMsg}"`, severity: Severity.ERROR }));

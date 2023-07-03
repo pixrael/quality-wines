@@ -3,7 +3,7 @@ import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 import './RegisterCard.scss';
 import TextfieldQWW from "../textfield-qww/TextfieldQWW";
-import { useRegisterUserMutation } from "../../store/api/auth-api";
+import { useRegisterUserMutation } from "../../store/api/wines-qww-api";
 import { useEffect, useState } from "react";
 import { showSnackbar } from "../../store/slices/overlay-slice";
 import store from "../../store/store";

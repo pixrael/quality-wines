@@ -1,8 +1,8 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react'
 import { URL_API } from '../../constants';
 
-export const authApi = createApi({
-    reducerPath: 'user',
+export const winesQWWApi = createApi({
+    reducerPath: 'api',
     baseQuery: fetchBaseQuery({ baseUrl: URL_API }),
     endpoints: builder => ({
         registerUser: builder.mutation<any, { email: string, password: string, username: string }>({
@@ -22,4 +22,4 @@ export const authApi = createApi({
     })
 })
 
-export const { useRegisterUserMutation, useLoginUserMutation } = authApi;
+export const { useRegisterUserMutation, useLoginUserMutation } = winesQWWApi;
