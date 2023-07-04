@@ -9,6 +9,7 @@ function TextfieldQWW<T extends FieldValues>({ registerObj, textfieldParams, use
         if (!errors || !errors[fieldName]) return '';
         return errors[fieldName]?.message as string;
     }
+
     const { register, formState: { errors }
     } = useFormObj;
 
@@ -37,7 +38,7 @@ function TextfieldQWW<T extends FieldValues>({ registerObj, textfieldParams, use
     }
 
     return (
-        <TextField  {...register(registerName, registerOptions)} error={!!errors?.email} helperText={getMessageError(errors, registerName)} className="textfield-form" {...textfParams} />
+        <TextField  {...register(registerName, registerOptions)} error={!!(errors && errors[registerName])} helperText={getMessageError(errors, registerName)} className="textfield-form" {...textfParams} />
     );
 }
 

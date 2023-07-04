@@ -3,9 +3,8 @@ import { Box, Button, CircularProgress, Collapse, IconButton, LinearProgress, Pa
 import { useState } from "react";
 import FirstPageIcon from '@mui/icons-material/FirstPage';
 import LastPageIcon from '@mui/icons-material/LastPage';
-import EditIcon from '@mui/icons-material/Edit';
 import AddCircleIcon from '@mui/icons-material/AddCircle';
-import DeleteIcon from '@mui/icons-material/Delete';
+import OperationsCell from "./OperationsCell";
 
 interface TablePaginationActionsProps {
     count: number;
@@ -95,7 +94,7 @@ const StyledTableRow = styled(TableRow)(({ theme }) => ({
 }));
 
 
-export default function WinesTable({ rows }: {
+export default function WinesTable({ rows, onAddWine }: {
     rows: {
         _id: string;
         name: string;
@@ -107,7 +106,8 @@ export default function WinesTable({ rows }: {
         graduation: number;
         ph: number;
         observations: string;
-    }[]
+    }[],
+    onAddWine: () => void
 }) {
     const [page, setPage] = useState(0);
     const [rowsPerPage, setRowsPerPage] = useState(5);
@@ -144,7 +144,7 @@ export default function WinesTable({ rows }: {
             <Table sx={{ minWidth: 500 }} aria-label="custom pagination table">
                 <TableHead>
                     <TableRow>
-                        <TableCell>Operations</TableCell>
+                        <TableCell>Operations <Button onClick={() => onAddWine()} ><AddCircleIcon /></Button ></TableCell>
                         <TableCell>Name</TableCell>
                         <TableCell align="right">Year</TableCell>
                         <TableCell align="right">Variety</TableCell>
@@ -157,57 +157,33 @@ export default function WinesTable({ rows }: {
                     </TableRow>
                 </TableHead>
                 <TableBody>
-                    
                     {(rowsPerPage > 0
                         ? rows.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
                         : rows
                     ).map((row) => (
-                        <>
-                            <StyledTableRow key={row.name}>
-                                <StyledTableCell >
-                                    {row._id !== openId &&
-                                        <>
-                                            <Button onClick={() => uncollapseRow(row._id)} disabled={row._id === openId} ><DeleteIcon /></Button>
-                                            <Button onClick={() => uncollapseRow(row._id)} disabled={row._id === openId} ><EditIcon /></Button>
-
-                                            <Button onClick={() => uncollapseRow(row._id)} disabled={row._id === openId} ><AddCircleIcon /></Button>
-                                            <CircularProgress />
-                                        </>
-                                    }                                  
+                        <StyledTableRow key={row.name}>
+                            <StyledTableCell >
+                                {row._id !== openId &&
+                                    <>
+                                        <OperationsCell id={row._id} onDelete={id => console.log('delete ', id)} onEdit={id => console.log('edit ', id)} />
+                                    </>
+                                }
 
 
-                                </StyledTableCell>
-                                <StyledTableCell>
-                                    {row.name}
-                                </StyledTableCell>
-                                <StyledTableCell align="right">{row.year}</StyledTableCell>
-                                <StyledTableCell align="right">{row.variety}</StyledTableCell>
-                                <StyledTableCell align="right">{row.type}</StyledTableCell>
-                                <StyledTableCell align="right">{row.color}</StyledTableCell>
-                                <StyledTableCell align="right">{row.temperature}</StyledTableCell>
-                                <StyledTableCell align="right">{row.graduation}</StyledTableCell>
-                                <StyledTableCell align="right">{row.ph}</StyledTableCell>
-                                <StyledTableCell align="right">{row.observations}</StyledTableCell>
-
-
-
-                            </StyledTableRow>
-                            <StyledTableRow key={row.name + '2nd'}>
-                                <TableCell style={{ paddingBottom: 0, paddingTop: 0 }} colSpan={6}>
-                                    <Collapse in={openId === row._id} timeout="auto" unmountOnExit>
-
-                                        <Box sx={{ margin: 1 }}>
-                                            COLLAPSE CONTENT. Are you sure you want to delete this wine?<>
-                                                <Button onClick={() => uncollapseRow(row._id)} >cancel edition</Button>
-                                                <Button onClick={() => uncollapseRow(row._id)} >confirm edition</Button>
-                                            </>
-                                        </Box>
-                                    </Collapse>
-                                </TableCell>
-                            </StyledTableRow>
-                        </>
+                            </StyledTableCell>
+                            <StyledTableCell>
+                                {row.name}
+                            </StyledTableCell>
+                            <StyledTableCell align="right">{row.year}</StyledTableCell>
+                            <StyledTableCell align="right">{row.variety}</StyledTableCell>
+                            <StyledTableCell align="right">{row.type}</StyledTableCell>
+                            <StyledTableCell align="right">{row.color}</StyledTableCell>
+                            <StyledTableCell align="right">{row.temperature}</StyledTableCell>
+                            <StyledTableCell align="right">{row.graduation}</StyledTableCell>
+                            <StyledTableCell align="right">{row.ph}</StyledTableCell>
+                            <StyledTableCell align="right">{row.observations}</StyledTableCell>
+                        </StyledTableRow>
                     ))}
-
 
 
 

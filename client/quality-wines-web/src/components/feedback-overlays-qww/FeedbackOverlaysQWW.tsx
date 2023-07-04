@@ -5,13 +5,10 @@ import store from "../../store/store";
 
 function FeedbackOverlaysQWW() {
     const { isShown, message, severity } = useSelector(selectSnackbar);
-    const onClose = () => {
-        store.dispatch(hideSnackbar());
-    }
+    const onClose = () => store.dispatch(hideSnackbar());
 
     return (<>
-        {isShown && < SnackbarQWW message={message} severity={severity} openSnackbar={isShown} onClose={onClose} />}
-
+        {isShown && <SnackbarQWW message={message} severity={severity} openSnackbar={isShown} onClose={onClose} />}
     </>)
 }
 

@@ -1,6 +1,12 @@
+import { useState } from "react";
 import WinesTable from "../components/wines-table/WinesTable";
+import DialogQWW from "../components/dialog-qww/DialogQWW";
+import NewWineForm from "../components/new-wine-form/NewWineForm";
 
 function Measurements() {
+
+    const [openNewModal, setOpenNewModal] = useState(false);
+    const [openEditModal, setOpenEditModal] = useState(false);
 
     const rowMock = [
         {
@@ -32,7 +38,14 @@ function Measurements() {
     ];
 
 
-    return (<WinesTable rows={rowMock} />)
+    return (
+        <>
+            <WinesTable rows={rowMock} onAddWine={() => setOpenNewModal(true)} />
+            <DialogQWW open={openNewModal} handleClose={() => setOpenNewModal(false)} title='New wine' >
+                <NewWineForm onCancel={() => setOpenNewModal(false)} />
+            </DialogQWW>
+        </>
+    )
 }
 
 export default Measurements;
