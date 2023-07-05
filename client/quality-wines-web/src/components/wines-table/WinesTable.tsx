@@ -94,7 +94,7 @@ const StyledTableRow = styled(TableRow)(({ theme }) => ({
 }));
 
 
-export default function WinesTable({ rows, onAddWine }: {
+export default function WinesTable({ rows, onAddWineClick, onEditWineClick }: {
     rows: {
         _id: string;
         name: string;
@@ -107,7 +107,8 @@ export default function WinesTable({ rows, onAddWine }: {
         ph: number;
         observations: string;
     }[],
-    onAddWine: () => void
+    onAddWineClick: () => void,
+    onEditWineClick: (id: string) => void,
 }) {
     const [page, setPage] = useState(0);
     const [rowsPerPage, setRowsPerPage] = useState(5);
@@ -144,7 +145,7 @@ export default function WinesTable({ rows, onAddWine }: {
             <Table sx={{ minWidth: 500 }} aria-label="custom pagination table">
                 <TableHead>
                     <TableRow>
-                        <TableCell>Operations <Button onClick={() => onAddWine()} ><AddCircleIcon /></Button ></TableCell>
+                        <TableCell>Operations <Button onClick={() => onAddWineClick()} ><AddCircleIcon /></Button ></TableCell>
                         <TableCell>Name</TableCell>
                         <TableCell align="right">Year</TableCell>
                         <TableCell align="right">Variety</TableCell>
@@ -165,7 +166,7 @@ export default function WinesTable({ rows, onAddWine }: {
                             <StyledTableCell >
                                 {row._id !== openId &&
                                     <>
-                                        <OperationsCell id={row._id} onDelete={id => console.log('delete ', id)} onEdit={id => console.log('edit ', id)} />
+                                        <OperationsCell id={row._id} onDelete={id => console.log('delete ', id)} onEdit={onEditWineClick} />
                                     </>
                                 }
 

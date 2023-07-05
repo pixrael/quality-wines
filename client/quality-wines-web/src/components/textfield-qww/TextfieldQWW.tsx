@@ -38,7 +38,7 @@ function TextfieldQWW<T extends FieldValues>({ registerObj, textfieldParams, use
     }
 
     return (
-        <TextField  {...register(registerName, registerOptions)} error={!!(errors && errors[registerName])} helperText={getMessageError(errors, registerName)} className="textfield-form" {...textfParams} />
+        <TextField  {...register(registerName, registerOptions)} error={!!(errors && errors[registerName])} helperText={getMessageError(errors, registerName)} className="textfield-form" {...textfParams}  />
     );
 }
 

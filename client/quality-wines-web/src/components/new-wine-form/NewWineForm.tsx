@@ -1,18 +1,12 @@
-import { CardContent, Typography, CardActions, Button, Box, LinearProgress, Divider } from "@mui/material";
-import { useForm } from "react-hook-form";
-import { useNavigate } from "react-router-dom";
-/* import './RegisterCard.scss'; */
+import { CardContent, Box, InputAdornment } from "@mui/material";
+import { UseFormReturn } from "react-hook-form";
 import TextfieldQWW from "../textfield-qww/TextfieldQWW";
-import { useRegisterUserMutation } from "../../store/api/wines-qww-api";
-import { useEffect, useState } from "react";
-import { showSnackbar } from "../../store/slices/overlay-slice";
-import store from "../../store/store";
-import { Severity } from "../feedback-overlays-qww/snackbar-qww/SnackbarQWW";
 import SelectQWW from "../select-qww/SelectQWW";
+import TextAreaQWW from "../text-area-qww/TextAreaQWW";
 
 interface NEW_WINE {
     name: string;
-    year: number;
+    year: string;
     variety: string;
     type: string;
     color: string;
@@ -23,10 +17,10 @@ interface NEW_WINE {
 }
 
 
-const newWineFormValues: NEW_WINE = {
+export const newWineFormValues: NEW_WINE = {
     name: '',
-    year: 99,
-    variety: 'variety1',
+    year: '',
+    variety: '',
     type: '',
     color: '',
     temperature: 0,
@@ -35,34 +29,7 @@ const newWineFormValues: NEW_WINE = {
     observations: '',
 }
 
-function NewWineForm({ onCancel }: { onCancel: () => void }) {
-    const navigate = useNavigate();
-    const [registerUser, response] = useRegisterUserMutation()
-    const useFormObj = useForm({ mode: 'onChange', defaultValues: newWineFormValues });
-
-    const [showLoading, setShowLoading] = useState(false);
-
-    const onSubmit = (data: NEW_WINE) => {
-        //registerUser(data);
-        console.log('data ', data);
-        //addNewWine
-    }
-
-    useEffect(() => {
-
-        if (response.endpointName === 'registerUser') {
-            setShowLoading(response.isLoading);
-
-            if (response.isSuccess) {
-                store.dispatch(showSnackbar({ message: `User ${response.data.username} register successfully`, severity: Severity.SUCCESS }));
-            } else if (response.isError && 'status' in response.error) {
-                const errMsg = 'error' in response.error ? response.error.error : response.error.data
-                store.dispatch(showSnackbar({ message: `Error: "${errMsg}"`, severity: Severity.ERROR }));
-            }
-        }
-
-
-    }, [response]);
+function NewWineForm({ useFormObj }: { useFormObj: UseFormReturn<NEW_WINE, any, undefined> }) {
 
     const varietyOptions = [
         { label: 'Variety 1', value: 'variety1' },
@@ -70,72 +37,135 @@ function NewWineForm({ onCancel }: { onCancel: () => void }) {
         { label: 'Variety 3', value: 'variety3' },
     ];
 
-    return (
-        <form onSubmit={useFormObj.handleSubmit(onSubmit)}>
-            <CardContent>
-                <Typography variant="body2" color="text.secondary">
-                    Add wine properties
-                </Typography>
-                <Box className="register-form-container" >
-                    <TextfieldQWW
-                        registerObj={{
-                            name: "name",
-                            registerOptions: {
-                                required: true,
-                                pattern: {
-                                    value: /^[a-zA-Z][a-zA-Z0-9]*$/,
-                                    message: "should start with a letter and the rest could be alphanumeric"
-                                }
-                            }
-                        }}
-                        useFormObj={useFormObj}
-                        textfieldParams={{ label: 'Name of the wine' }}
-                    />
+    const typeOptions = [
+        { label: 'type 1', value: 'type1' },
+        { label: 'type 2', value: 'type2' },
+        { label: 'type 3', value: 'type3' },
+    ];
 
-                    <TextfieldQWW
-                        registerObj={{
-                            name: "year",
-                            registerOptions: {
-                                required: true,
-                                pattern: {
-                                    value: /^(9\d{2}|[1-9]\d{3})$/,
-                                    message: "lowest year 99 and max year 9999"
-                                }
-                            }
-                        }}
-                        useFormObj={useFormObj}
-                    />
-                    <SelectQWW registerObj={{
-                        name: 'variety',
-                        registerOptions: {
-                            required: true
+
+    return (<CardContent>
+        <Box className="register-form-container" >
+            <TextfieldQWW
+                registerObj={{
+                    name: "name",
+                    registerOptions: {
+                        required: true,
+                    }
+                }}
+                useFormObj={useFormObj}
+                textfieldParams={{ label: 'Name of the wine' }}
+            />
+            <TextfieldQWW
+                registerObj={{
+                    name: "year",
+                    registerOptions: {
+                        required: true,
+                        pattern: {
+                            value: /^[1-9]\d{2,3}$/,
+                            message: "lowest year 100 and max year 9999"
                         }
-                    }}
+                    }
+                }}
+                useFormObj={useFormObj}
+            />
 
+            <SelectQWW
+                registerObj='variety'
+                useFormObj={useFormObj} options={varietyOptions} selectParams={
+                    {
+                        select: { defaultValue: varietyOptions[0].value },
+                    }
+                } />
 
-                        useFormObj={useFormObj} options={varietyOptions} selectParams={
-                            {
-                                select: { defaultValue: '' },
-                            }
-                        } />
+            <SelectQWW
+                registerObj='type'
+                useFormObj={useFormObj} options={typeOptions} selectParams={
+                    {
+                        select: { defaultValue: typeOptions[0].value },
+                    }
+                } />
 
-                    
+            <TextfieldQWW
+                registerObj={{
+                    name: "color",
+                    registerOptions: {
+                        required: true
+                    }
+                }}
+                useFormObj={useFormObj}
+            />
 
-                </Box>
-            </CardContent>
-            <Divider />
-            {showLoading && <LinearProgress />}
-            <CardActions >
+            <TextfieldQWW
+                registerObj={{
+                    name: "temperature",
+                    registerOptions: {
+                        required: true,
+                        min: { value: 1, message: 'Min value is 1' },
+                        max: { value: 100, message: 'Max value is 100 ' }
+                    }
+                }}
+                useFormObj={useFormObj}
+                textfieldParams={
+                    {
+                        input: 'number',
+                        InputProps: {
+                            endAdornment: <InputAdornment position="end">F°</InputAdornment>
+                        }
+                    }
+                }
+            />
 
-                <Button size="small" color="primary" type="submit" >
-                    Add wine
-                </Button>
-                <Button size="small" color="primary" onClick={onCancel} >
-                    Cancel
-                </Button>
-            </CardActions>
-        </form>
-    );
+            <TextfieldQWW
+                registerObj={{
+                    name: "graduation",
+                    registerOptions: {
+                        required: true,
+                        min: { value: 0, message: 'Min value is 0' },
+                        max: { value: 100, message: 'Max value is 100 ' }
+                    }
+                }}
+                useFormObj={useFormObj}
+                textfieldParams={
+                    {
+                        InputProps: {
+                            endAdornment: <InputAdornment position="end">%</InputAdornment>
+                        }
+                    }
+                }
+            />
+
+            <TextfieldQWW
+                registerObj={{
+                    name: "ph",
+                    registerOptions: {
+                        required: true,
+                        min: { value: 1, message: 'Min value is 1' },
+                        max: { value: 10, message: 'Max value is 10 ' }
+                    }
+                }}
+                useFormObj={useFormObj}
+                textfieldParams={
+                    {
+                        InputProps: {
+                            endAdornment: <InputAdornment position="end">g/l</InputAdornment>
+                        }
+                    }
+                }
+            />
+            <TextAreaQWW
+                registerObj="observations"
+                useFormObj={useFormObj}
+                textareaParams={
+                    {
+                        minRows: 3,
+                        ['aria-label']: 'observations',
+                        placeholder: "Observations..."
+                    }
+                }
+            />
+        </Box>
+    </CardContent>);
 }
 
 export default NewWineForm;

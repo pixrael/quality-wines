@@ -29,12 +29,7 @@ export default function SelectQWW<T extends FieldValues>({
     }
 
 
-    const { register, formState: { errors }, getValues
-    } = useFormObj;
-
-    const [showError, setShowError] = useState(true);
-
-
+    const { register, formState: { errors } } = useFormObj;
 
     const registerName = (typeof registerObj === 'string') ? registerObj : registerObj.name;
 
@@ -61,9 +56,7 @@ export default function SelectQWW<T extends FieldValues>({
             ...defaultRegisterOptions,
         }
 
-    const onChange = () => {
-        setShowError(!(!!getValues()[registerName]))
-    }
+    const onChange = (value: any) => { }
 
     return (
         <Box sx={{ minWidth: 120 }} className="select-form" >
@@ -72,15 +65,15 @@ export default function SelectQWW<T extends FieldValues>({
                 <Select
                     {...register(registerName, registerOptions)}
                     {...selectParamsCmp}
-                    onChange={() => onChange()}
-                    error={!!(errors && errors[registerName])}
+                    onChange={(v) => onChange(v.target.value)}
+                    error={!!getMessageError(errors, registerName)}
                     labelId="select-qww-label"
                     id="select-qww"
                 >
                     {options.map(option => <MenuItem key={option.value} value={option.value} {...menuItemParams}>{option.label}</MenuItem>)}
 
                 </Select>
-                {showError && <FormHelperText error>{getMessageError(errors, registerName)}</FormHelperText>}
+                <FormHelperText error>{getMessageError(errors, registerName)}</FormHelperText>
             </FormControl>
         </Box >
     );

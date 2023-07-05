@@ -1,12 +1,11 @@
 import { useState } from "react";
 import WinesTable from "../components/wines-table/WinesTable";
-import DialogQWW from "../components/dialog-qww/DialogQWW";
-import NewWineForm from "../components/new-wine-form/NewWineForm";
+import AddingNewWine from "../components/adding-new-wine/AddingNewWine";
+import EditingWine from "../components/editing-wine/EditingWine";
 
 function Measurements() {
-
-    const [openNewModal, setOpenNewModal] = useState(false);
-    const [openEditModal, setOpenEditModal] = useState(false);
+    const [isAddingNewWine, setIsAddingNewWine] = useState(false);
+    const [isEditingWine, setIsEditingWine] = useState<{ isEditing: boolean, idWine: string }>({ isEditing: false, idWine: '' });
 
     const rowMock = [
         {
@@ -37,15 +36,21 @@ function Measurements() {
         }
     ];
 
+    const onAddWineClick = () => {
+        setIsAddingNewWine(true);
+        setIsEditingWine({ isEditing: false, idWine: '' });
+    }
 
-    return (
-        <>
-            <WinesTable rows={rowMock} onAddWine={() => setOpenNewModal(true)} />
-            <DialogQWW open={openNewModal} handleClose={() => setOpenNewModal(false)} title='New wine' >
-                <NewWineForm onCancel={() => setOpenNewModal(false)} />
-            </DialogQWW>
-        </>
-    )
+    const onEditWineClick = (id: string) => {
+        setIsAddingNewWine(false);
+        setIsEditingWine({ isEditing: true, idWine: id });
+    }
+
+    return (<>
+        <WinesTable rows={rowMock} onAddWineClick={onAddWineClick} onEditWineClick={onEditWineClick} />
+        {isAddingNewWine && <AddingNewWine onCancelAddNewWine={() => setIsAddingNewWine(false)} />}
+        {isEditingWine.isEditing && <EditingWine />}
+    </>)
 }
 
 export default Measurements;

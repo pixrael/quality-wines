@@ -5,6 +5,8 @@ import DialogTitle from '@mui/material/DialogTitle';
 import DialogContent from '@mui/material/DialogContent';
 import IconButton from '@mui/material/IconButton';
 import CloseIcon from '@mui/icons-material/Close';
+import { Button, DialogActions } from '@mui/material';
+import { FieldValues, UseFormReturn } from 'react-hook-form';
 
 const BootstrapDialog = styled(Dialog)(({ theme }) => ({
     '& .MuiDialogContent-root': {
@@ -45,23 +47,30 @@ function BootstrapDialogTitle(props: DialogTitleProps) {
     );
 }
 
-export default function DialogQWW({ open, handleClose, title, children }: { open: boolean; handleClose: () => void; title: string; children: JSX.Element }) {
-
+export default function DialogQWW<T extends FieldValues>({ open, onSubmit, handleClose, title, children }: { open: boolean; onSubmit: (vals: any) => void; handleClose: () => void; title: string; children: JSX.Element }) {
 
     return (
-        <div>
-            <BootstrapDialog
-                onClose={handleClose}
-                aria-labelledby="dialog-title"
-                open={open}
-            >
-                <BootstrapDialogTitle id="dialog-title" onClose={handleClose}>
-                    {title}
-                </BootstrapDialogTitle>
-                <DialogContent dividers>
-                    {children}
-                </DialogContent>
-            </BootstrapDialog>
-        </div>
+        <BootstrapDialog
+            onClose={handleClose}
+            aria-labelledby="dialog-qww-title"
+            open={open}
+            scroll='paper'
+        >
+            <BootstrapDialogTitle id="dialog-qww-title" onClose={handleClose}>
+                {title}
+            </BootstrapDialogTitle>
+            <DialogContent dividers>
+                {children}
+            </DialogContent>
+            <DialogActions>
+                <Button onClick={handleClose}>
+                    Cancel
+                </Button>
+                <Button autoFocus onClick={onSubmit}>
+                    Save changes
+                </Button>
+            </DialogActions>
+        </BootstrapDialog>
+
     );
 }
