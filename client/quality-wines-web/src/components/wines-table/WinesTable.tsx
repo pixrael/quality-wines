@@ -162,7 +162,7 @@ export default function WinesTable({ rows, onAddWineClick, onEditWineClick }: {
                         ? rows.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
                         : rows
                     ).map((row) => (
-                        <StyledTableRow key={row.name}>
+                        <StyledTableRow key={row._id}>
                             <StyledTableCell >
                                 {row._id !== openId &&
                                     <>

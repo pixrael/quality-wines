@@ -23,6 +23,11 @@ export const winesQWWApi = createApi({
         }),
 
         //wines
+        getWines: builder.query<any, void>({
+            query: () => {
+                return { url: `/wines`, credentials: "include" };
+            }
+        }),
         addWine: builder.mutation({
             query: (body: NEW_WINE) => ({
                 url: `/wines`,
@@ -40,4 +45,4 @@ export const winesQWWApi = createApi({
     })
 })
 
-export const { useRegisterUserMutation, useLoginUserMutation, useAddWineMutation } = winesQWWApi;
+export const { useRegisterUserMutation, useLoginUserMutation, useGetWinesQuery, useAddWineMutation } = winesQWWApi;
