@@ -1,11 +1,14 @@
-import { Button } from "@mui/material";
+import { Button, CircularProgress } from "@mui/material";
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
 
-function OperationsCell({ id, onDelete, onEdit }: { id: string; onDelete: (id: string) => void; onEdit: (id: string) => void }) {
+function OperationsCell({ id, onDelete, onEdit, showLoading = false }: { id: string; onDelete: (id: string) => void; onEdit: (id: string) => void; showLoading?: boolean }) {
     return (<>
-        <Button onClick={() => onDelete(id)} ><DeleteIcon /></Button >
-        <Button onClick={() => onEdit(id)}><EditIcon /></Button>
+        {showLoading && <CircularProgress />}
+        {!showLoading && <>
+            <Button onClick={() => onDelete(id)} ><DeleteIcon /></Button >
+            <Button onClick={() => onEdit(id)}><EditIcon /></Button>
+        </>}
     </>);
 }
 

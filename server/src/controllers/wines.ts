@@ -102,12 +102,13 @@ export const deleteWine = async (req: express.Request, res: express.Response) =>
   try {
     const { id } = req.params;
 
-    const deletedWine = await deleteWineById(id);
     const wine = await getWineById(id);
     if (!wine) {
       return res.status(400).json({ message: 'Wine to delete not found' });
     }
-    
+
+    const deletedWine = await deleteWineById(id);
+
     return res.json(deletedWine);
   } catch (error) {
     console.log(error);

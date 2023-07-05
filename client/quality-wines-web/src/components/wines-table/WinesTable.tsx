@@ -94,7 +94,7 @@ const StyledTableRow = styled(TableRow)(({ theme }) => ({
 }));
 
 
-export default function WinesTable({ rows, onAddWineClick, onEditWineClick }: {
+export default function WinesTable({ rows, onAddWineClick, onEditWineClick, onDeleteWineClick, idDeleteLoading }: {
     rows: {
         _id: string;
         name: string;
@@ -109,6 +109,8 @@ export default function WinesTable({ rows, onAddWineClick, onEditWineClick }: {
     }[],
     onAddWineClick: () => void,
     onEditWineClick: (id: string) => void,
+    onDeleteWineClick: (id: string) => void,
+    idDeleteLoading: string
 }) {
     const [page, setPage] = useState(0);
     const [rowsPerPage, setRowsPerPage] = useState(5);
@@ -166,7 +168,7 @@ export default function WinesTable({ rows, onAddWineClick, onEditWineClick }: {
                             <StyledTableCell >
                                 {row._id !== openId &&
                                     <>
-                                        <OperationsCell id={row._id} onDelete={id => console.log('delete ', id)} onEdit={onEditWineClick} />
+                                        <OperationsCell id={row._id} onDelete={onDeleteWineClick} onEdit={onEditWineClick} showLoading={row._id === idDeleteLoading} />
                                     </>
                                 }
 

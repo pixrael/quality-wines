@@ -5,6 +5,7 @@ import { NEW_WINE } from '../../components/new-wine-form/NewWineForm';
 export const winesQWWApi = createApi({
     reducerPath: 'api',
     baseQuery: fetchBaseQuery({ baseUrl: URL_API, mode: 'cors' }),
+    tagTypes: ['ListWines'],
     endpoints: builder => ({
         //auth
         registerUser: builder.mutation<any, { email: string, password: string, username: string }>({
@@ -26,7 +27,8 @@ export const winesQWWApi = createApi({
         getWines: builder.query<any, void>({
             query: () => {
                 return { url: `/wines`, credentials: "include" };
-            }
+            },
+            providesTags: ['ListWines']
         }),
         addWine: builder.mutation({
             query: (body: NEW_WINE) => ({
@@ -39,10 +41,17 @@ export const winesQWWApi = createApi({
                 }
             }),
             //invalidatesTags: [''],
-
+        }),
+        deleteWine: builder.mutation({
+            query: (id: string) => ({
+                url: `/wines/${id}`,
+                method: 'DELETE',
+                credentials: 'include'
+            }),
+            invalidatesTags: ['ListWines'],
         }),
 
     })
 })
 
-export const { useRegisterUserMutation, useLoginUserMutation, useGetWinesQuery, useAddWineMutation } = winesQWWApi;
+export const { useRegisterUserMutation, useLoginUserMutation, useGetWinesQuery, useAddWineMutation, useDeleteWineMutation } = winesQWWApi;
