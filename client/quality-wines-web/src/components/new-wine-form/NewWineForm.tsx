@@ -4,7 +4,7 @@ import TextfieldQWW from "../textfield-qww/TextfieldQWW";
 import SelectQWW from "../select-qww/SelectQWW";
 import TextAreaQWW from "../text-area-qww/TextAreaQWW";
 
-interface NEW_WINE {
+export interface NEW_WINE {
     name: string;
     year: string;
     variety: string;

@@ -3,7 +3,7 @@ import { useCookies } from "react-cookie";
 import { useNavigate } from "react-router-dom";
 import { COOKIE_SESSION_TOKEN } from "../constants";
 
-const useLoginSession = (): [Function, Function, { SessionToken?: any }, Function, Function, boolean] => {
+const useLoginSession = (): [Function, Function, { ['WINES-QUALITY-AUTH']?: any }, Function, Function, boolean, string] => {
     const navigate = useNavigate();
     const [cookies, setCookie, removeCookie] = useCookies([COOKIE_SESSION_TOKEN]);
 
@@ -22,7 +22,7 @@ const useLoginSession = (): [Function, Function, { SessionToken?: any }, Functio
 
 
 
-    return [setSession, removeSession, cookies, setCookie, removeCookie, !!cookies[COOKIE_SESSION_TOKEN]]
+    return [setSession, removeSession, cookies, setCookie, removeCookie, !!cookies[COOKIE_SESSION_TOKEN], cookies[COOKIE_SESSION_TOKEN]]
 };
 
 export default useLoginSession;

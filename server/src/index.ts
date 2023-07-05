@@ -6,16 +6,22 @@ import http from 'http';
 import bodyParser from 'body-parser';
 import cookieParser from 'cookie-parser';
 import compression from 'compression';
-import cors from 'cors';
 import mongoose from 'mongoose';
 import router from './router';
 import { PORT, MONGO_URL } from '../constants';
 
 const app = express();
 
-app.use(cors({
-    credentials: true,
-}));
+app.use((req, res, next) => {
+    // Set the appropriate headers for CORS
+    res.setHeader('Access-Control-Allow-Origin', 'http://localhost:3000');
+    res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE');
+    res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
+    res.setHeader('Access-Control-Allow-Credentials', 'true'); // Allow credentials
+
+    // Continue to the next middleware
+    next();
+});
 
 app.use(compression());
 app.use(cookieParser());
