@@ -66,7 +66,7 @@ export default function DialogQWW<T extends FieldValues>({ open, onSubmit, handl
                 <Button onClick={handleClose}>
                     Cancel
                 </Button>
-                <Button autoFocus onClick={onSubmit}>
+                <Button data-testid='save-form-button' autoFocus onClick={onSubmit}>
                     Save changes
                 </Button>
             </DialogActions>

@@ -56,7 +56,7 @@ function NewWineForm({ useFormObj }: { useFormObj: UseFormReturn<NEW_WINE, any, 
                     }
                 }}
                 useFormObj={useFormObj}
-                textfieldParams={{ label: 'Name of the wine' }}
+                textfieldParams={{ label: 'Name of the wine', ['data-testid']: 'input-text-name' }}
             />
             <TextfieldQWW
                 registerObj={{
@@ -70,23 +70,35 @@ function NewWineForm({ useFormObj }: { useFormObj: UseFormReturn<NEW_WINE, any, 
                     }
                 }}
                 useFormObj={useFormObj}
+                textfieldParams={{ ['data-testid']: 'input-text-year' }}
             />
 
             <SelectQWW
                 registerObj='variety'
                 useFormObj={useFormObj} options={varietyOptions} selectParams={
                     {
-                        select: { defaultValue: varietyOptions[0].value },
+                        select: {
+                            defaultValue: varietyOptions[0].value,
+                            ['data-testid']: 'select-variety'
+                        },
+
                     }
-                } />
+                }
+
+            />
 
             <SelectQWW
                 registerObj='type'
                 useFormObj={useFormObj} options={typeOptions} selectParams={
                     {
-                        select: { defaultValue: typeOptions[0].value },
+                        select: {
+                            defaultValue: typeOptions[0].value,
+                            ['data-testid']: 'select-variety'
+                        }
                     }
-                } />
+                }
+
+            />
 
             <TextfieldQWW
                 registerObj={{
@@ -96,6 +108,7 @@ function NewWineForm({ useFormObj }: { useFormObj: UseFormReturn<NEW_WINE, any, 
                     }
                 }}
                 useFormObj={useFormObj}
+                textfieldParams={{ ['data-testid']: 'input-text-color' }}
             />
 
             <TextfieldQWW
@@ -113,7 +126,8 @@ function NewWineForm({ useFormObj }: { useFormObj: UseFormReturn<NEW_WINE, any, 
                         input: 'number',
                         InputProps: {
                             endAdornment: <InputAdornment position="end">F°</InputAdornment>
-                        }
+                        },
+                        ['data-testid']: 'input-text-temperature'
                     }
                 }
             />
@@ -132,7 +146,8 @@ function NewWineForm({ useFormObj }: { useFormObj: UseFormReturn<NEW_WINE, any, 
                     {
                         InputProps: {
                             endAdornment: <InputAdornment position="end">%</InputAdornment>
-                        }
+                        },
+                        ['data-testid']: 'input-text-graduation'
                     }
                 }
             />
@@ -151,7 +166,8 @@ function NewWineForm({ useFormObj }: { useFormObj: UseFormReturn<NEW_WINE, any, 
                     {
                         InputProps: {
                             endAdornment: <InputAdornment position="end">g/l</InputAdornment>
-                        }
+                        },
+                        ['data-testid']: 'input-text-ph'
                     }
                 }
             />
@@ -162,7 +178,8 @@ function NewWineForm({ useFormObj }: { useFormObj: UseFormReturn<NEW_WINE, any, 
                     {
                         minRows: 3,
                         ['aria-label']: 'observations',
-                        placeholder: "Observations..."
+                        placeholder: "Observations...",
+                        ['data-testid']: 'textarea-observations'
                     }
                 }
             />

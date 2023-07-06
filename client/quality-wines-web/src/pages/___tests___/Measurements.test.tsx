@@ -1,7 +1,7 @@
 import { render } from "@testing-library/react";
 import Measurements from "../Measurements";
 import { useGetWinesQuery, useAddWineMutation } from "../../store/api/wines-qww-api";
-import { clickAddWineButton, queryAllByWinesTableRows, queryByCircularProgresMeasurements, queryByWineForm, queryByWinesTable } from "./Measurements.pom";
+import { clickAddWineButton,  queryAllByWinesTableRows, queryByCircularProgresMeasurements, queryByWineForm, queryByWinesTable } from "./Measurements.pom";
 import { mock1 } from "./mocks";
 
 jest.mock("../../store/api/wines-qww-api", () => {
@@ -93,7 +93,7 @@ describe('Display wines table', () => {
     });
 
 
-    it('Should add a new wine ', async () => {
+    it('Should open the form to add a new wine ', async () => {
 
         (useGetWinesQuery as jest.Mock<any, any>).mockReturnValue({
             data: mock1, //mock with two wines
@@ -105,7 +105,7 @@ describe('Display wines table', () => {
 
 
         (useAddWineMutation as jest.Mock<any, any>).mockReturnValue([
-            () => { },
+            (wineToAdd: any) => { console.log('wineToAdd ', wineToAdd); },
             {//response
                 endpointName: 'addWine',
                 isSuccess: false,
@@ -130,8 +130,6 @@ describe('Display wines table', () => {
         const wineForm = queryByWineForm();
 
         expect(wineForm).toBeTruthy();
-
-        // continue here ... fill the form and click in acept 
 
     });
 
