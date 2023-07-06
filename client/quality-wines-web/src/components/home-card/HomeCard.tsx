@@ -7,6 +7,7 @@ import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import useLoginSession from '../../hooks/useLoginSession';
 import { useNavigate } from 'react-router-dom';
+import wineImg from '../../assets/images/wines.jpg'; // with import
 
 
 const pages = [
@@ -24,7 +25,7 @@ export default function HomeCard() {
         <Card sx={{ maxWidth: 345 }}>
             <CardMedia
                 sx={{ height: 140 }}
-                image="https://images.unsplash.com/photo-1556442281-77c90134c61f?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80"
+                image={wineImg}
                 title="wine"
             />
             <CardContent>
