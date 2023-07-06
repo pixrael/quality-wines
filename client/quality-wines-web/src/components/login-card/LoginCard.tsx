@@ -87,7 +87,7 @@ function LoginCard() {
                     <Button size="small" color="primary" type="submit">
                         Login
                     </Button>
-                    <Button size="small" color="secondary" onClick={() => navigate('/register')}>
+                    <Button size="small" color="secondary" onClick={() => navigate('/registry')}>
                         Register
                     </Button>
                 </CardActions>

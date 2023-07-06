@@ -7,7 +7,7 @@ import { useLocation, useNavigate } from "react-router-dom";
 import useIsLogged from "../../hooks/useLoginSession";
 
 
-const pages = [{ label: 'Register', navigateTo: '/register' }, { label: 'Measurements', navigateTo: '/measurements' },];
+const pages = [{ label: 'Register', navigateTo: '/registry' }, { label: 'Measurements', navigateTo: '/measurements' },];
 const settings = ['Logout'];
 
 const Navbar = () => {
@@ -43,7 +43,7 @@ const Navbar = () => {
         setAnchorElUser(null);
     };
 
-    const showNavbarButtons = location.pathname !== '/login' && location.pathname !== '/register';
+    const showNavbarButtons = location.pathname !== '/login' && location.pathname !== '/registry';
 
     return (
         <AppBar position="static">

@@ -14,7 +14,7 @@ function App() {
       <Navbar />
       <Routes>
         <Route path='/login' element={<NoLoginRequired componentToRender={<Login />} redirectTo='/measurements' />} />
-        <Route path='/register' element={<Register />} />
+        <Route path='/registry' element={<Register />} />
         <Route path='/measurements' element={<AuthRequired componentToRender={<Measurements />} />} />
       </Routes>
       <FeedbackOverlaysQWW />
