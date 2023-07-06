@@ -133,11 +133,11 @@ export default function WinesTable({ rows, onAddWineClick, onEditWineClick, onDe
     }
 
     return (
-        <TableContainer component={Paper}>
+        <TableContainer component={Paper} data-testid='wines-table' >
             <Table sx={{ minWidth: 500 }} aria-label="custom pagination table">
                 <TableHead>
                     <TableRow>
-                        <TableCell>Operations <Button onClick={() => onAddWineClick()} ><AddCircleIcon /></Button ></TableCell>
+                        <TableCell>Operations <Button aria-label="add wine button"  onClick={() => onAddWineClick()} ><AddCircleIcon /></Button ></TableCell>
                         <TableCell>Name</TableCell>
                         <TableCell align="right">Year</TableCell>
                         <TableCell align="right">Variety</TableCell>
@@ -153,8 +153,8 @@ export default function WinesTable({ rows, onAddWineClick, onEditWineClick, onDe
                     {(rowsPerPage > 0
                         ? rows.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
                         : rows
-                    ).map((row) => (
-                        <StyledTableRow key={row._id}>
+                    ).map((row, i) => (
+                        <StyledTableRow data-testid={`row-${i}`} key={row._id}>
                             <StyledTableCell >
                                 {row._id !== openId &&
                                     <>
@@ -164,7 +164,7 @@ export default function WinesTable({ rows, onAddWineClick, onEditWineClick, onDe
 
 
                             </StyledTableCell>
-                            <StyledTableCell>
+                            <StyledTableCell data-testid={`row-name-${row._id}`}  >
                                 {row.name}
                             </StyledTableCell>
                             <StyledTableCell align="right">{row.year}</StyledTableCell>

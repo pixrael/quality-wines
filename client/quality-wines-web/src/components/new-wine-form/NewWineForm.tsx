@@ -46,7 +46,7 @@ function NewWineForm({ useFormObj }: { useFormObj: UseFormReturn<NEW_WINE, any, 
     ];
 
 
-    return (<CardContent>
+    return (<CardContent data-testid='wine-form' >
         <Box className="register-form-container" >
             <TextfieldQWW
                 registerObj={{
