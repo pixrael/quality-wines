@@ -108,7 +108,7 @@ function RegisterCard() {
                         Send
                     </Button>
                     <Button size="small" color="primary" onClick={() => navigate('/')} >
-                                            Go back
+                                            Cancel
                     </Button>
                 </CardActions>
             </form>

@@ -2,15 +2,17 @@ import { Toolbar, Typography, Box, IconButton, Menu, MenuItem, Button, Tooltip, 
 import { useState } from "react";
 import MenuIcon from '@mui/icons-material/Menu';
 import LiquorIcon from '@mui/icons-material/Liquor';
-import { useLocation } from "react-router-dom";
+import SettingsIcon from '@mui/icons-material/Settings';
+import { useLocation, useNavigate } from "react-router-dom";
 import useIsLogged from "../../hooks/useLoginSession";
 
 
-const pages = ['Products', 'Pricing', 'Blog'];
+const pages = [{ label: 'Register', navigateTo: '/register' }, { label: 'Measurements', navigateTo: '/measurements' },];
 const settings = ['Logout'];
 
 const Navbar = () => {
-    const [,removeSession] = useIsLogged();
+    const navigate = useNavigate();
+    const [, removeSession] = useIsLogged();
     const location = useLocation();
 
     const [anchorElNav, setAnchorElNav] = useState<null | HTMLElement>(null);
@@ -27,13 +29,22 @@ const Navbar = () => {
         setAnchorElNav(null);
     };
 
+    const handlePageClick = (navigateTo: string) => {
+        navigate(navigateTo);
+    }
+
+
     const handleCloseUserMenu = () => {
+        setAnchorElUser(null);
+    };
+
+    const handleLogout = () => {
         removeSession();
         setAnchorElUser(null);
     };
 
     const showNavbarButtons = location.pathname !== '/login' && location.pathname !== '/register';
-    
+
     return (
         <AppBar position="static">
             <Container maxWidth="xl">
@@ -88,8 +99,8 @@ const Navbar = () => {
                                 }}
                             >
                                 {pages.map((page) => (
-                                    <MenuItem key={page} onClick={handleCloseNavMenu}>
-                                        <Typography textAlign="center">{page}</Typography>
+                                    <MenuItem key={page.label} onClick={() => handlePageClick(page.navigateTo)} disabled={location.pathname === page.navigateTo}>
+                                        <Typography textAlign="center">{page.label}</Typography>
                                     </MenuItem>
                                 ))}
                             </Menu>
@@ -97,7 +108,6 @@ const Navbar = () => {
                     }
 
                     <LiquorIcon sx={{ display: { xs: 'flex', md: 'none' }, mr: 1 }} />
-                    {/* add bottle icon */}
                     <Typography
                         variant="h5"
                         noWrap
@@ -120,18 +130,19 @@ const Navbar = () => {
                         <><Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
                             {pages.map((page) => (
                                 <Button
-                                    key={page}
-                                    onClick={handleCloseNavMenu}
+                                    key={page.label}
+                                    onClick={() => handlePageClick(page.navigateTo)}
                                     sx={{ my: 2, color: 'white', display: 'block' }}
+                                    disabled={location.pathname === page.navigateTo}
                                 >
-                                    {page}
+                                    {page.label}
                                 </Button>
                             ))}
                         </Box>
                             <Box sx={{ flexGrow: 0 }}>
                                 <Tooltip title="Open settings">
-                                    <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                                        <Avatar alt="Remy Sharp" src="/static/images/avatar/2.jpg" />
+                                    <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }} color="inherit">
+                                        <SettingsIcon />
                                     </IconButton>
                                 </Tooltip>
                                 <Menu
@@ -151,7 +162,7 @@ const Navbar = () => {
                                     onClose={handleCloseUserMenu}
                                 >
                                     {settings.map((setting) => (
-                                        <MenuItem key={setting} onClick={handleCloseUserMenu}>
+                                        <MenuItem key={setting} onClick={handleLogout}>
                                             <Typography textAlign="center">{setting}</Typography>
                                         </MenuItem>
                                     ))}
