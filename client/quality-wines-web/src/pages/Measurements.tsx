@@ -65,12 +65,16 @@ function Measurements() {
         deleteWine(id);
     }
 
+    const onCancelEditing = () => {
+        setIsEditingWine({ isEditing: false, idWine: '' });
+    }
+
 
     return (<>
         {isSuccess && <WinesTable rows={wines} onAddWineClick={onAddWineClick} onEditWineClick={onEditWineClick} onDeleteWineClick={onDeleteWineClick} idDeleteLoading={idDeleteLoading} />}
         {isLoading && <CircularProgress />}
         {isAddingNewWine && <AddingNewWine onCancelAddNewWine={() => setIsAddingNewWine(false)} />}
-        {isEditingWine.isEditing && <EditingWine />}
+        {isEditingWine.isEditing && <EditingWine idEditingWine={isEditingWine.idWine} onCancel={onCancelEditing} />}
     </>)
 }
 

@@ -5,6 +5,7 @@ import SelectQWW from "../select-qww/SelectQWW";
 import TextAreaQWW from "../text-area-qww/TextAreaQWW";
 
 export interface NEW_WINE {
+    _id: string;
     name: string;
     year: string;
     variety: string;
@@ -12,12 +13,13 @@ export interface NEW_WINE {
     color: string;
     temperature: number;
     graduation: number;
-    ph: string;
+    ph: number;
     observations: string;
 }
 
 
 export const newWineFormValues: NEW_WINE = {
+    _id: '',
     name: '',
     year: '',
     variety: '',
@@ -25,7 +27,7 @@ export const newWineFormValues: NEW_WINE = {
     color: '',
     temperature: 0,
     graduation: 0,
-    ph: '',
+    ph: 0,
     observations: '',
 }
 

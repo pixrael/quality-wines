@@ -13,6 +13,22 @@ export const getAllWines = async (req: express.Request, res: express.Response) =
   }
 };
 
+export const getAWineById = async (req: express.Request, res: express.Response) => {
+  try {
+    const { id } = req.params;
+    if (!id) {
+      return res.sendStatus(400);
+    }
+    const wine = await getWineById(id);
+
+    return res.status(200).json(wine);
+  } catch (error) {
+    console.log(error);
+    return res.sendStatus(400);
+  }
+};
+
+
 
 export const createNewWine = async (req: express.Request, res: express.Response) => {
   try {

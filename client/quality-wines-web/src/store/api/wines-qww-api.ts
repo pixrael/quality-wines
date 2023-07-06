@@ -24,7 +24,7 @@ export const winesQWWApi = createApi({
         }),
 
         //wines
-        getWines: builder.query<any, void>({
+        getWines: builder.query<NEW_WINE[], void>({
             query: () => {
                 return { url: `/wines`, credentials: "include" };
             },
@@ -36,12 +36,31 @@ export const winesQWWApi = createApi({
                 method: 'POST',
                 credentials: 'include',
                 body: {
+                    ...body
+                }
+            }),
+            invalidatesTags: ['ListWines'],
+        }),
+
+        getWineById: builder.query<NEW_WINE, string>({
+            query: (id: string) => {
+                return { url: `/wines/${id}`, credentials: "include" };
+            }
+        }),
+
+        updateWine: builder.mutation({
+            query: ({ id, body }: { id: string, body: NEW_WINE }) => ({
+                url: `/wines/${id}`,
+                method: 'PATCH',
+                credentials: 'include',
+                body: {
                     ...body,
                     temperature: body.temperature.toString()
                 }
             }),
-            //invalidatesTags: [''],
+            invalidatesTags: ['ListWines'],
         }),
+
         deleteWine: builder.mutation({
             query: (id: string) => ({
                 url: `/wines/${id}`,
@@ -54,4 +73,4 @@ export const winesQWWApi = createApi({
     })
 })
 
-export const { useRegisterUserMutation, useLoginUserMutation, useGetWinesQuery, useAddWineMutation, useDeleteWineMutation } = winesQWWApi;
+export const { useRegisterUserMutation, useLoginUserMutation, useGetWinesQuery, useGetWineByIdQuery, useAddWineMutation, useUpdateWineMutation, useDeleteWineMutation } = winesQWWApi;

@@ -5,6 +5,7 @@ import FirstPageIcon from '@mui/icons-material/FirstPage';
 import LastPageIcon from '@mui/icons-material/LastPage';
 import AddCircleIcon from '@mui/icons-material/AddCircle';
 import OperationsCell from "./OperationsCell";
+import { NEW_WINE } from "../new-wine-form/NewWineForm";
 
 interface TablePaginationActionsProps {
     count: number;
@@ -95,18 +96,7 @@ const StyledTableRow = styled(TableRow)(({ theme }) => ({
 
 
 export default function WinesTable({ rows, onAddWineClick, onEditWineClick, onDeleteWineClick, idDeleteLoading }: {
-    rows: {
-        _id: string;
-        name: string;
-        year: string;
-        variety: string;
-        type: string;
-        color: string;
-        temperature: number;
-        graduation: number;
-        ph: number;
-        observations: string;
-    }[],
+    rows: NEW_WINE[],
     onAddWineClick: () => void,
     onEditWineClick: (id: string) => void,
     onDeleteWineClick: (id: string) => void,
