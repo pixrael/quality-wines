@@ -24,8 +24,8 @@ export default function HomeCard() {
         <Card sx={{ maxWidth: 345 }}>
             <CardMedia
                 sx={{ height: 140 }}
-                image="/static/images/cards/contemplative-reptile.jpg"
-                title="green iguana"
+                image="https://images.unsplash.com/photo-1556442281-77c90134c61f?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80"
+                title="wine"
             />
             <CardContent>
                 <Typography gutterBottom variant="h5" component="div">
