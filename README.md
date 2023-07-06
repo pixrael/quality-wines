@@ -14,6 +14,7 @@ Use the server\.env.sample file to add the values of the mongodb username, mongo
 
 ## Adding connecting to a mongo database
 In order to connect to a database, should be added the mongodb user name and password, this should be done in the " server\.env". This will allow to connect to the database to save the data of the wines.
+In the "server\constants.ts" file is the MONGO_URL that can be changed too if needed.
 
 
 ## Some of the used tecnologies 
@@ -26,6 +27,7 @@ Client:
 Server:
 * NodeJS
 * Express
+* Mongoose
 
 
 ## Using the app
