@@ -1,14 +1,15 @@
 import { useEffect } from "react";
 import { useCookies } from "react-cookie";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { COOKIE_SESSION_TOKEN } from "../constants";
 
 const useLoginSession = (): [Function, Function, { ['WINES-QUALITY-AUTH']?: any }, Function, Function, boolean, string] => {
     const navigate = useNavigate();
     const [cookies, setCookie, removeCookie] = useCookies([COOKIE_SESSION_TOKEN]);
+    const location = useLocation();
 
     useEffect(() => {
-        !cookies[COOKIE_SESSION_TOKEN] && navigate('/login')
+        location.pathname !== '/' && !cookies[COOKIE_SESSION_TOKEN] && navigate('/login')
     }, [cookies])
 
     const removeSession = () => {
