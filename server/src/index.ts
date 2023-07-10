@@ -38,6 +38,9 @@ mongoose.connection.on('error', (error: Error) => {
 })
 
 mongoose.Promise = Promise;
-mongoose.connect(MONGO_URL);
+mongoose.connect(MONGO_URL)
+.then(conn=>console.log('connection database  - ok -'))
+.catch(err=>console.log('error database ', err))
+;
 
 app.use('/', router()); 
