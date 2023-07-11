@@ -33,7 +33,7 @@ app.use(bodyParser.json());
 const server = http.createServer(app);
 
 server.listen(PORT || 8080, () => {
-    console.log(`Server running on http://localhost:${PORT || 8080}/`);
+    console.log(`Server running`);
 });
 
 mongoose.connection.on('error', (error: Error) => {
