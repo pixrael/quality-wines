@@ -2,7 +2,7 @@ import express from 'express';
 
 import { getUserByEmail, createUser } from '../db/users';
 import { authentication, random } from '../helpers';
-import { COOKIES_AUTH, WHITELIST_IP_1 } from '../../constants';
+import { COOKIES_AUTH, WHITELIST_SITE_DOMAIN } from '../../constants';
 
 export const login = async (req: express.Request, res: express.Response) => {
   try {
@@ -29,7 +29,7 @@ export const login = async (req: express.Request, res: express.Response) => {
 
     await user.save();
 
-    res.cookie(COOKIES_AUTH, user.authentication.sessionToken/* , { domain: WHITELIST_IP_1, path: '/' } */);
+    res.cookie(COOKIES_AUTH, user.authentication.sessionToken, { domain: WHITELIST_SITE_DOMAIN, path: '/' });
 
     return res.status(200).json(user).end();
   } catch (error) {

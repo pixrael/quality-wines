@@ -7,3 +7,4 @@ export const COOKIES_AUTH = 'WINES-QUALITY-AUTH';
 export const WHITELIST_IP_1 = process.env.WHITELIST_IP_1;
 export const WHITELIST_IP_2 = process.env.WHITELIST_IP_2;
 export const WHITELIST_IP_3 = process.env.WHITELIST_IP_3;
+export const WHITELIST_SITE_DOMAIN = process.env.WHITELIST_SITE_DOMAIN;
