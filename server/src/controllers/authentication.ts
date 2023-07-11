@@ -6,6 +6,7 @@ import { COOKIES_AUTH, WHITELIST_SITE_DOMAIN } from '../../constants';
 
 export const login = async (req: express.Request, res: express.Response) => {
   try {
+    console.log('LOGIN');
     const { email, password } = req.body;
 
     if (!email || !password) {
@@ -13,7 +14,7 @@ export const login = async (req: express.Request, res: express.Response) => {
     }
 
     const user = await getUserByEmail(email).select('+authentication.salt +authentication.password');
-
+    console.log('user ', user);
     if (!user) {
       return res.sendStatus(400);
     }
