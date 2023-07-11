@@ -5,16 +5,18 @@ import { COOKIES_AUTH } from '../../constants';
 
 export const isAuthenticated = async (req: express.Request, res: express.Response, next: express.NextFunction) => {
   try {
-    console.log('req.cookies ', req.cookies);
+    console.log('Auth ');
     const sessionToken = req.cookies[COOKIES_AUTH];
 
     if (!sessionToken) {
+      console.log('Auth - no sessiontoken ', req.cookies);
       return res.sendStatus(403);
     }
 
     const existingUser = await getUserBySessionToken(sessionToken);
 
     if (!existingUser) {
+      console.log('Auth - no existingUser ', existingUser);
       return res.sendStatus(403);
     }
 
