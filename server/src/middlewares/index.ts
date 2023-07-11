@@ -5,7 +5,7 @@ import { COOKIES_AUTH } from '../../constants';
 
 export const isAuthenticated = async (req: express.Request, res: express.Response, next: express.NextFunction) => {
   try {
-    console.log('Auth ');
+    console.log('Auth ', COOKIES_AUTH);
     const sessionToken = req.cookies[COOKIES_AUTH];
 
     if (!sessionToken) {
