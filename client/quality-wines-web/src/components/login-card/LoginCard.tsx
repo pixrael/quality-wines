@@ -32,7 +32,7 @@ function LoginCard() {
 
             if (response.isSuccess) {
                 store.dispatch(showSnackbar({ message: `User ${response.data.username} logged successfully`, severity: Severity.SUCCESS }));
-
+                console.log('response loggin ', response);
                 setSession(response.data.authentication.sessionToken);
                 navigate('/measurements');
 
