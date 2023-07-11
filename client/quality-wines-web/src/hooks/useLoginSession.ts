@@ -17,7 +17,7 @@ const useLoginSession = (): [Function, Function, { ['WINES-QUALITY-AUTH']?: any 
     }
 
     const setSession = (token: string) => {
-        setCookie(COOKIE_SESSION_TOKEN, token, { path: '/', domain: process.env.REACT_APP_SITE_DOMAIN });
+        setCookie(COOKIE_SESSION_TOKEN, token, { path: '/' });
 
     }
 
