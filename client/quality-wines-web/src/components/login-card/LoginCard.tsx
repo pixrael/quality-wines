@@ -34,8 +34,11 @@ function LoginCard() {
                 store.dispatch(showSnackbar({ message: `User ${response.data.username} logged successfully`, severity: Severity.SUCCESS }));
                 console.log('response loggin ', response);
                 setSession(response.data.authentication.sessionToken);
-                setTimeout(() => console.log('redirecting...'),3000)
-                navigate('/measurements');
+                setTimeout(() => {
+                    console.log('redirecting...');
+                    navigate('/measurements');
+                }, 3000)
+                
 
             } else if (response.isError && 'status' in response.error) {
                 const errMsg = 'error' in response.error ? response.error.error : response.error.data
