@@ -14,7 +14,7 @@ const app = express();
 
 app.use((req, res, next) => {
     // Set the appropriate headers for CORS
-    res.setHeader('Access-Control-Allow-Origin', req.headers.origin);
+    res.setHeader('Access-Control-Allow-Origin', WHITELIST_IP_1);
     res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, PATCH');
     res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
     res.setHeader('Access-Control-Allow-Credentials', 'true'); // Allow credentials
