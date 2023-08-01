@@ -19,7 +19,7 @@ In the "server\constants.ts" file is the MONGO_URL that can be changed too if ne
 
 ## Some of the used tecnologies 
 Client:
-* State Management React Redux and React toolkit query
+* State Management React Redux and Redux toolkit query
 * UI component library Material UI
 * React router dom to manage the routing
 * To test used the library testing-library/react
